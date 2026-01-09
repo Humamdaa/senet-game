@@ -18,6 +18,6 @@ class Cell:
     def is_special(self):
         return self.value in ["H", "W", "T", "R", "A", "E"]
 
-    def __repr__(self):
-        return f"Cell({self.row}, {self.col}, '{self.value}')"
+    # def __repr__(self):
+    #     return f"Cell({self.row}, {self.col}, '{self.value}')"
 

@@ -1,4 +1,6 @@
-from Board import Board
+# from Board import Board
+from Board2 import Board
+
 from Player import Player
 
 import json
@@ -35,7 +37,9 @@ while True:
         board.draw_board()
         print()
         print()
-        board.draw_board()
-
+        # board.draw_board()
+    else:
+        break
+    print()
     print(board.get_current_player())
     # player1.roll_distance()
