@@ -1,6 +1,4 @@
 from Board import Board
-# from Board2 import Board
-
 from Player import Player
 
 import json
@@ -35,9 +33,7 @@ while True:
         board.move(cur_pos - 1, dist)
 
         board.draw_board()
-        # print()
-        # print()
-        # board.draw_board()
+
     else:
         break
     print()

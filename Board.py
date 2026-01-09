@@ -49,12 +49,12 @@ class Board:
             print(cell.get_value(), end=" ")
             
     def move(self, cur_pos, dist):
-
         target = cur_pos + dist
         if not self.checkMove(cur_pos, dist):
             print("wrong input")
             return
         
+        print('hhhh')
         source_cell = self.grid[cur_pos]
         target_cell = self.grid[target]
 
@@ -73,7 +73,6 @@ class Board:
             source_cell.set_value(target_val)
             target_cell.set_value(source_val)
 
-        self.set_current_player(self.switchPlayer())
         self.switchPlayer()
     def checkMove(self, cur_pos, dist):
         
@@ -88,7 +87,7 @@ class Board:
         print('can move !')
         return True
 
-    def switchPlayer(self,player):
+    def switchPlayer(self):
         if self.current_player == "A":
             self.current_player="B"
         else:

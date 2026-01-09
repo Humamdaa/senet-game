@@ -5,7 +5,7 @@ class Cell:
         self.special = None
         if self.value in ["H", "W", "T", "R", "P", "E"]:
             self.special = self.value
-            self.value='.'
+            # self.value='.'
 
     def is_empty(self):
         return self.value == "."
@@ -21,6 +21,4 @@ class Cell:
 
     def is_special(self):
         return self.value in ["H", "W", "T", "R", "A", "E"]
-    # def __repr__(self):
-    #     return f"Cell({self.row}, {self.col}, '{self.value}')"
 
