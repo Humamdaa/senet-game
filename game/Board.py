@@ -1,5 +1,5 @@
-from Cell import Cell
-from SpecialSquareRules import SpecialSquareRules
+from game.Cell import Cell
+from game.SpecialSquareRules import SpecialSquareRules
 
 PIECE_NUM = 7
 
