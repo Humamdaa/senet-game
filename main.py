@@ -1,9 +1,6 @@
 from Board import Board
-<<<<<<< Updated upstream
-=======
 # from Board2 import Board
 
->>>>>>> Stashed changes
 from Player import Player
 
 import json
@@ -38,13 +35,6 @@ while True:
         board.move(cur_pos - 1, dist)
 
         board.draw_board()
-<<<<<<< Updated upstream
-        print()
-        print()
-        board.draw_board()
-
-    print(board.get_current_player())
-=======
         # print()
         # print()
         # board.draw_board()
@@ -52,5 +42,4 @@ while True:
         break
     print()
     # print(board.get_current_player())
->>>>>>> Stashed changes
     # player1.roll_distance()
