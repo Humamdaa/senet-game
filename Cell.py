@@ -2,6 +2,10 @@ class Cell:
     def __init__(self, pos, value):
         self.row = pos
         self.value = value
+        self.special = None
+        if self.value in ["H", "W", "T", "R", "P", "E"]:
+            self.special = self.value
+            self.value='.'
 
     def is_empty(self):
         return self.value == "."
@@ -13,11 +17,16 @@ class Cell:
         self.value = newVal
         
     def is_player_piece(self):
-        return self.value in ["1", "2"]
+        return self.value in ["A", "B"]
 
     def is_special(self):
         return self.value in ["H", "W", "T", "R", "A", "E"]
+<<<<<<< Updated upstream
 
     def __repr__(self):
         return f"Cell({self.row}, {self.col}, '{self.value}')"
+=======
+    # def __repr__(self):
+    #     return f"Cell({self.row}, {self.col}, '{self.value}')"
+>>>>>>> Stashed changes
 

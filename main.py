@@ -1,4 +1,9 @@
 from Board import Board
+<<<<<<< Updated upstream
+=======
+# from Board2 import Board
+
+>>>>>>> Stashed changes
 from Player import Player
 
 import json
@@ -28,14 +33,24 @@ while True:
         dist = player2.roll_distance()
 
         print('\n', '='*50, f"\n A can move {dist} cells")
-        cur_pos = int(input('select the piece to move'))
+        cur_pos = int(input('select the piece to move : '))
 
         board.move(cur_pos - 1, dist)
 
         board.draw_board()
+<<<<<<< Updated upstream
         print()
         print()
         board.draw_board()
 
     print(board.get_current_player())
+=======
+        # print()
+        # print()
+        # board.draw_board()
+    else:
+        break
+    print()
+    # print(board.get_current_player())
+>>>>>>> Stashed changes
     # player1.roll_distance()
