@@ -10,6 +10,11 @@ class Board:
         self.size = grid_data["size"]
         self.grid: list[Cell] = self.create_grid_from_data1(grid_data["grid"])
         self.current_player = 'A'
+        self.last_move = 0  # لتتبع الرمية الأخيرة
+        self.piece_on_28 = None  # لتتبع القطعة على المربع 28
+        self.piece_on_29 = None  # لتتبع القطعة على المربع 29
+        self.piece_on_30 = None  # لتتبع القطعة على المربع 30
+        
         self.special_squares = {
             15: "House of Rebirth",      # بيت البعث
             26: "House of Happiness",    # بيت السعادة
@@ -32,22 +37,10 @@ class Board:
             grid.append(cell)
         return grid
 
-    def draw_board2(self):
-        arr = []
-        for i, cell in enumerate(self.grid):
-
-            if 10 <= i <= 19:
-                arr.append(cell.value)
-
-            if i == 19:
-                print(" ".join(reversed(arr)), end=" ")
-
-            if i % 10 == 0:
-                print()
-            if not (10 <= i <= 19):
-                print(cell.get_value(), end=" ")
-
     def draw_board(self):
+        for i in range(1,11):
+            print(i,end=" ")
+        print()
         data = list(self.grid)
         result = data[:10] + list(reversed(data[10:20])) + data[20:]
         for i, cell in enumerate(result):
@@ -57,6 +50,7 @@ class Board:
 
     def move(self, cur_pos, dist):
         if not self.checkMove(cur_pos, dist):
+            print("wrong input")
             return
 
         target = cur_pos + dist
@@ -78,9 +72,13 @@ class Board:
             source_cell.set_value(target_val)
             target_cell.set_value(source_val)
 
-        self.set_current_player(self.switchPlayer())
-
+        self.switchPlayer()
     def checkMove(self, cur_pos, dist):
+        
+        print(f"cur = {cur_pos}  dist = {dist}")
+        if cur_pos < 0 or cur_pos >= 30:
+            return False
+            
         if self.grid[cur_pos].get_value() != self.current_player \
                 or self.grid[cur_pos + dist].get_value() == self.current_player:
             return False
@@ -88,7 +86,9 @@ class Board:
         print('can move !')
         return True
 
-    def switchPlayer(player):
-        if player == 'A':
-            return 'B'
-        return 'A'
+    def switchPlayer(self):
+        if self.current_player == "A":
+            self.current_player="B"
+        else:
+            self.current_player="A"
+
