@@ -1,4 +1,4 @@
-from Board import Board
+from Board_copy import Board
 from Player import Player
 
 import json

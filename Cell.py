@@ -8,7 +8,7 @@ class Cell:
             # self.value='.'
 
     def is_empty(self):
-        return self.value == "."
+        return self.value == "." or self.value in ["H", "W", "T", "R", "P", "E"]
 
     def get_value(self):
         return self.value

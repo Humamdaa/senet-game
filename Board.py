@@ -10,7 +10,7 @@ class Board:
         self.size = grid_data["size"]
         self.grid: list[Cell] = self.create_grid_from_data1(grid_data["grid"])
         self.current_player = 'A'
-        self.last_move = 0  # لتتبع الرمية الأخيرة
+        self.last_roll = 0  # لتتبع الرمية الأخيرة
         self.piece_on_28 = None  # لتتبع القطعة على المربع 28
         self.piece_on_29 = None  # لتتبع القطعة على المربع 29
         self.piece_on_30 = None  # لتتبع القطعة على المربع 30
@@ -54,17 +54,24 @@ class Board:
             print("wrong input")
             return
         
-        print('hhhh')
+        self.last_roll = dist
+
         source_cell = self.grid[cur_pos]
         target_cell = self.grid[target]
 
+        new_target = self.apply_special_square_rules(target, cur_pos, dist)
+        if new_target != target:
+            print(f"Special rule applied! New target: {new_target}")
+            target = new_target
+            target_cell = self.grid[target]
+        
         if target_cell.is_empty():
             print('empty')
             target_cell.set_value(source_cell.get_value())
             source_cell.set_value('.')
 
         elif target_cell.is_special():
-            pass
+            self.handle_special_cell(target, cur_pos, source_cell)
 
         elif target_cell.is_player_piece():
             print('player')
@@ -73,7 +80,7 @@ class Board:
             source_cell.set_value(target_val)
             target_cell.set_value(source_val)
 
-        self.switchPlayer()
+        # self.switchPlayer()
     def checkMove(self, cur_pos, dist):
         
         print(f"cur = {cur_pos}  dist = {dist}")
@@ -87,6 +94,44 @@ class Board:
         print('can move !')
         return True
 
+    def apply_special_square_rules(self, target, cur_pos, dist):
+        
+        if target == 26:
+            print("Landed on House of Happiness (26)")
+            
+        elif target == 27:
+            print("Landed on House of Water (27) - Going to Rebirth House!")
+            return self.go_to_rebirth_house()
+            
+        elif target == 28:
+            print("Landed on House of Three Truths (28)")
+            self.piece_on_28 = self.current_player
+            return target
+            
+        elif target == 29:
+            print("Landed on House of Re-Atoum (29)")
+            self.piece_on_29 = self.current_player
+            return target
+            
+        elif target == 30:
+            print("Landed on House of Horus (30)")
+            self.piece_on_30 = self.current_player
+            return target
+            
+        return target
+    
+    def handle_special_cell(self, target, cur_pos, source_cell):
+        target_cell = self.grid[target]
+        
+        if target_cell.is_empty():
+            target_cell.set_value(source_cell.get_value())
+            source_cell.set_value('.')
+        else:
+            source_val = source_cell.get_value()
+            target_val = target_cell.get_value()
+            source_cell.set_value(target_val)
+            target_cell.set_value(source_val)
+    
     def switchPlayer(self):
         if self.current_player == "A":
             self.current_player="B"
