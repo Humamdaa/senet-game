@@ -1,5 +1,5 @@
-# from Board import Board
-from Board2 import Board
+from Board import Board
+# from Board2 import Board
 
 from Player import Player
 
@@ -30,16 +30,22 @@ while True:
         dist = player2.roll_distance()
 
         print('\n', '='*50, f"\n A can move {dist} cells")
-        cur_pos = int(input('select the piece to move'))
+        cur_pos = int(input('select the piece to move:  '))
 
         board.move(cur_pos - 1, dist)
 
         board.draw_board()
-        print()
-        print()
         # board.draw_board()
     else:
-        break
+        dist = player2.roll_distance()
+
+        print('\n', '='*50, f"\n B can move {dist} cells")
+        cur_pos = int(input('select the piece to move:  '))
+
+        board.move(cur_pos - 1, dist)
+
+        board.draw_board()
+        
     print()
+
     print(board.get_current_player())
-    # player1.roll_distance()

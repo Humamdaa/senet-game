@@ -3,9 +3,9 @@ from Cell import Cell
 
 PIECE_NUM = 7
 
+
 class Board:
     def __init__(self, grid_data):
-        self.grid_data = grid_data
         self.level = grid_data.get("name", "Level 1")
         self.size = grid_data["size"]
         self.grid: list[Cell] = self.create_grid_from_data1(grid_data["grid"])
@@ -14,7 +14,7 @@ class Board:
             15: "House of Rebirth",      # بيت البعث
             26: "House of Happiness",    # بيت السعادة
             27: "House of Water",        # بيت الماء
-            28: "House of Three Truths", # بيت الحقائق الثلاث
+            28: "House of Three Truths",  # بيت الحقائق الثلاث
             29: "House of Re-Atoum",     # بيت إعادة أتوم
             30: "House of Horus"         # بيت حورس
         }
@@ -46,26 +46,25 @@ class Board:
                 print()
             if not (10 <= i <= 19):
                 print(cell.get_value(), end=" ")
+
     def draw_board(self):
         data = list(self.grid)
         result = data[:10] + list(reversed(data[10:20])) + data[20:]
-        for i,cell in enumerate(result):
-            if i%10==0:
+        for i, cell in enumerate(result):
+            if i % 10 == 0:
                 print()
             print(cell.get_value(), end=" ")
-            
+
     def move(self, cur_pos, dist):
-        target = cur_pos + dist
         if not self.checkMove(cur_pos, dist):
-            print("ff")
             return
+
+        target = cur_pos + dist
         
-        print('hhhh')
         source_cell = self.grid[cur_pos]
         target_cell = self.grid[target]
 
         if target_cell.is_empty():
-            print('empty')
             target_cell.set_value(source_cell.get_value())
             source_cell.set_value('.')
 
@@ -82,7 +81,6 @@ class Board:
         self.set_current_player(self.switchPlayer())
 
     def checkMove(self, cur_pos, dist):
-        print(f"cur = {cur_pos}  dist = {dist}")
         if self.grid[cur_pos].get_value() != self.current_player \
                 or self.grid[cur_pos + dist].get_value() == self.current_player:
             return False
