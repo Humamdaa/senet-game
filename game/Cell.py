@@ -8,7 +8,7 @@ class Cell:
             # self.value='.'
 
     def is_empty(self):
-        return self.value == "." or self.value in ["H", "W", "T", "R", "P", "E"]
+        return self.value == "." 
 
     def get_value(self):
         return self.value
@@ -20,5 +20,5 @@ class Cell:
         return self.value in ["A", "B"]
 
     def is_special(self):
-        return self.value in ["H", "W", "T", "R", "A", "E"]
+        return self.value in ["H", "W", "T", "R", "E"]
 

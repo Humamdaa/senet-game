@@ -1,8 +1,7 @@
 import random
 
-class Player:
-    def __init__(self, name):
-        self.name = name
+class Random:
 
     def roll_distance(self):
         return random.randint(1, 5)
+    

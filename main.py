@@ -1,5 +1,6 @@
-from Board_copy import Board
-from Player import Player
+from game.Board import Board
+from modes.HumanVsHuman import HumanVsHuman
+from game.Render import Render
 
 import json
 
@@ -17,25 +18,13 @@ level1 = levels[0]
 
 board = Board(level1)
 
-board.draw_board()
 
-player1 = Player('A')
-player2 = Player('B')
+print()
+print('1- Human vs Human')
+print('2- Human vs Human')
+choose = int(input('select type of game: '))
 
-while True:
-    if board.get_current_player() == 'A':
 
-        dist = player2.roll_distance()
-
-        print('\n', '='*50, f"\n A can move {dist} cells")
-        cur_pos = int(input('select the piece to move : '))
-
-        board.move(cur_pos - 1, dist)
-
-        board.draw_board()
-
-    else:
-        break
-    print()
-    # print(board.get_current_player())
-    # player1.roll_distance()
+if choose == 1:
+    game = HumanVsHuman(board)
+    game.start()
