@@ -70,6 +70,8 @@ class HumanVsHuman:
             if Rules.checkMove(self.board, pos_index, dist):
                 Rules.move(self.board, pos_index, dist)
                 Render.draw_board(self.board.grid)
+                if self._check_win():
+                    exit()
                 self.board.switchPlayer()
                 break
 
