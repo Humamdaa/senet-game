@@ -3,6 +3,7 @@ class Cell:
         self.pos = pos
         self.value = value
         self.special = None
+        self.must_move_next_turn=False
         if self.value in ["H", "W", "T", "R", "P", "E"]:
             self.special = self.value
             # self.value='.'
@@ -13,6 +14,9 @@ class Cell:
     def get_value(self):
         return self.value
 
+    def get_pos(self):
+        return self.pos
+    
     def set_value(self, newVal):
         if newVal=='.' and self.is_special():
             self.value=self.special

@@ -1,4 +1,4 @@
-from utils.RandomStep import Random
+from Utils.RandomStep import Random
 from game.Board import Board
 from game.Rules import Rules
 from game.Render import Render
@@ -38,9 +38,12 @@ class HumanVsHuman:
             # Actual move mode
             self._handle_real_move(dist, user_input)
 
+<<<<<<< HEAD
             if self._check_win():
                 break
 
+=======
+>>>>>>> 80af3e0680e79cc7e86f717c22a44a3094804705
 
 # ===========================================
 # ========== Helper functions ============
@@ -62,7 +65,11 @@ class HumanVsHuman:
     def _handle_real_move(self, dist, first_input):
         while True:
             print("\n" + "=" * 50)
+<<<<<<< HEAD
             # print(f"{self.board.get_current_player()} can move {dist} cells")
+=======
+            print(f"{self.board.get_current_player()} can move {dist} cells")
+>>>>>>> 80af3e0680e79cc7e86f717c22a44a3094804705
 
             pos_index = self._get_valid_piece_input(first_input)
             first_input = ""  # reset after first use

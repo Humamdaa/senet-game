@@ -2,6 +2,7 @@ class Render:
 
     @staticmethod
     def draw_board(grid):
+        print()
         for i in range(1, 11):
             print(i, end=" ")
         data = list(grid)
@@ -10,3 +11,4 @@ class Render:
             if i % 10 == 0:
                 print()
             print(cell.get_value(), end=" ")
+        print()
