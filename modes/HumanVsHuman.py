@@ -35,10 +35,9 @@ class HumanVsHuman:
                 print("\n" + "=" * 50)
                 print(f"{self.board.get_current_player()} can move {dist} cells")
 
-                # If user already entered a number before, use it
                 if user_input.isdigit():
                     cur_pos = int(user_input)
-                    user_input = None  # reset for next loop
+                    user_input = ''  
                 else:
                     # Ask again for a valid number
                     cur_pos = input("Select the piece to move: ").strip()
