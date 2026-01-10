@@ -9,17 +9,21 @@ class HumanVsHuman:
     def __init__(self, board):
         self.board: Board = board
         self.rand = Random()
+        self.state = StateGenrator(board)
 
     def start(self):
         Render.draw_board(self.board.grid)
 
-        while True:
+        while not self._check_win():
             dist = self.rand.roll_distance()
 
-            if self._check_win():
-                return
-
             print(f"\n{self.board.get_current_player()} rolled: {dist}")
+
+            if len(self.state.generate_legal_moves(dist)) == 0:
+                print(
+                    f"❌change the role from {self.board.get_current_player()} to another player")
+                self.board.switchPlayer()
+                continue
 
             # Ask for simulation or actual move
             user_input = input(
@@ -33,6 +37,9 @@ class HumanVsHuman:
 
             # Actual move mode
             self._handle_real_move(dist, user_input)
+
+            if self._check_win():
+                break
 
 
 # ===========================================
@@ -55,7 +62,7 @@ class HumanVsHuman:
     def _handle_real_move(self, dist, first_input):
         while True:
             print("\n" + "=" * 50)
-            print(f"{self.board.get_current_player()} can move {dist} cells")
+            # print(f"{self.board.get_current_player()} can move {dist} cells")
 
             pos_index = self._get_valid_piece_input(first_input)
             first_input = ""  # reset after first use
