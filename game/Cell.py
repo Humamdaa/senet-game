@@ -13,6 +13,9 @@ class Cell:
     def get_value(self):
         return self.value
 
+    def get_pos(self):
+        return self.pos
+    
     def set_value(self, newVal):
         if newVal=='.' and self.is_special():
             self.value=self.special
