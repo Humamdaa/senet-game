@@ -12,7 +12,7 @@ class Board:
         self.current_player = 'A'
         self.last_move = 0  # لتتبع الرمية الأخيرة
         self.special_rules = SpecialSquareRules(self)
-
+        self.counter = 0
     def get_cell(self, pos):
         return self.grid[pos]
 
