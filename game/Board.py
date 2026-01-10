@@ -53,3 +53,9 @@ class Board:
         cloned_board.special_rules.last_roll = self.special_rules.last_roll
 
         return cloned_board
+
+    def has_player_won(self, player):
+        for cell in self.grid:
+            if cell.get_value() == player:
+                return False
+        return True
