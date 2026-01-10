@@ -49,7 +49,8 @@ class SpecialSquareRules:
         
         # التعامل مع كل مربع خاص حسب قواعده
         if position == 15:  # بيت البعث
-            return self.handle_rebirth_house(target, target_cell, source_cell, current_player)
+            return False 
+        # self.handle_rebirth_house(target, target_cell, source_cell, current_player)
         
         elif position == 26:  # بيت السعادة
             return self.handle_happiness_house(cur_pos, target, source_cell, target_cell, current_player)
@@ -112,13 +113,13 @@ class SpecialSquareRules:
     def handle_three_truths(self, target, source_cell, target_cell, current_player):
         """بيت الحقائق الثلاث (28)"""
         print("🔺 House of Three Truths: Need 3 on next turn to exit")
-        
-        # تسجيل أن هناك قطعة على المربع 28
         self.piece_on_28 = current_player
         self.player_should_exit = current_player
         self.square_to_exit = 28
-        self.should_try_exit_28 = True  # علامة أن اللاعب يجب أن يحاول الخروج
-        self.board.counter = 3
+        self.should_try_exit_28 = True 
+        # تسجيل أن هناك قطعة على المربع 28
+        target_cell.must_move_next_turn=True
+        self.board.counter = 3 if not self.board.counter else self.board.counter
         # حركة عادية
         if target_cell.is_empty():
             target_cell.set_value(source_cell.get_value())
@@ -139,15 +140,14 @@ class SpecialSquareRules:
         self.piece_on_29 = current_player
         self.player_should_exit = current_player
         self.square_to_exit = 29
-        self.should_try_exit_29 = True  # علامة أن اللاعب يجب أن يحاول الخروج
-        self.board.counter = 3
+        self.should_try_exit_29 = True
+        target_cell.must_move_next_turn=True
+        self.board.counter = 3 if not self.board.counter else self.board.counter
         
-        # حركة عادية
         if target_cell.is_empty():
             target_cell.set_value(source_cell.get_value())
             source_cell.set_value('.')
         else:
-            # إذا كان فيه قطعة أخرى، تبادل
             temp = source_cell.get_value()
             source_cell.set_value(target_cell.get_value())
             target_cell.set_value(temp)
@@ -160,8 +160,9 @@ class SpecialSquareRules:
         self.piece_on_30 = current_player
         self.player_should_exit = current_player
         self.square_to_exit = 30
+        target_cell.must_move_next_turn=True
         self.should_try_exit_30 = True  # علامة أن اللاعب يجب أن يحاول الخروج
-        self.board.counter = 3
+        self.board.counter = 3 if not self.board.counter else self.board.counter
         
         if target_cell.is_empty():
             target_cell.set_value(source_cell.get_value())
@@ -172,44 +173,25 @@ class SpecialSquareRules:
             target_cell.set_value(temp)
         
         return True
+    
+    def try_exit_from_special_square(self,cur_pos, current_player, dice_roll):
+        target_num = cur_pos+dice_roll
 
-    '''
-    def check_special_squares_after_move(self, current_player):
-        """
-        التحقق من القطع على المربعات الخاصة بعد كل حركة
-        يتم استدعاؤها بعد كل حركة
-        """
-        self.check_piece_on_28(current_player)
-        self.check_piece_on_29(current_player)
-        self.check_piece_on_30(current_player)
-    
-    def check_piece_on_28(self, current_player):
-        """التحقق من القطعة على المربع 28 (بيت الحقائق الثلاث)"""
-        if self.piece_on_28 and self.last_roll == 3:
-            # إذا كانت هناك قطعة على 28 واللاعب رمى 3
-            print(f"\n🎲 Player {self.piece_on_28} rolled 3! Piece exits from square 28!")
-            # إزالة القطعة من المربع 28 (المؤشر 27)
-            self.board.grid[27].set_value('.')
-            self.reset_exit_flags(28)  # إعادة تعيين العلامات
-    
-    def check_piece_on_29(self, current_player):
-        """التحقق من القطعة على المربع 29 (بيت إعادة أتوم)"""
-        if self.piece_on_29 and self.last_roll == 2:
-            # إذا كانت هناك قطعة على 29 واللاعب رمى 2
-            print(f"\n🎲 Player {self.piece_on_29} rolled 2! Piece exits from square 29!")
-            # إزالة القطعة من المربع 29 (المؤشر 28)
-            self.board.grid[28].set_value('.')
-            self.reset_exit_flags(29)  # إعادة تعيين العلامات
-    
-    def check_piece_on_30(self, current_player):
-        """التحقق من القطعة على المربع 30 (بيت حورس)"""
-        if self.piece_on_30 and self.last_roll > 0:
-            # إذا كانت هناك قطعة على 30 واللاعب رمى أي رقم
-            print(f"\n🎲 Player {self.piece_on_30} can exit from square 30!")
-            # إزالة القطعة من المربع 30 (المؤشر 29)
-            self.board.grid[29].set_value('.')
-            self.reset_exit_flags(30)  # إعادة تعيين العلامات
-    '''
+        for  cell in self.board.grid[-3:]:
+            if cell.get_value() == current_player and cell.must_move_next_turn:
+                if target_num>=31:
+                    # خروج ناجح
+                    print(f"✅ current_player {current_player} rolled 3 and exits from square 28 to off-board (31)")
+                    cell.set_value('.')
+                    # ممكن تخزن معلومة أن الحجر خرج نهائياً
+                    # self.board.exited_pieces[current_player].append("piece")  # مثال
+                    cell.must_move_next_turn = False
+                    print('true')
+                    self.reset_exit_flags(cur_pos)
+                    return True
+        print('ffffffff')
+        return False
+
     def check_penalty_for_not_exiting(self, current_player, moved_from_square):
         """
         التحقق إذا كان اللاعب تجنب إخراج قطعة من مربع خاص
@@ -259,9 +241,8 @@ class SpecialSquareRules:
             # إذا لم يوجد مربع فارغ، نذهب للمربع 15 نفسه
             print(f"   ↪ Penalty: Moving back to rebirth house (15)")
             self.board.grid[14].set_value(player)
-        
-        
         self.reset_exit_flags(square_number)
+    
     
     def reset_exit_flags(self, square_number):
         """إعادة تعيين علامات الخروج بعد تطبيق العقوبة أو النجاح"""
@@ -279,24 +260,6 @@ class SpecialSquareRules:
         if not (self.should_try_exit_28 or self.should_try_exit_29 or self.should_try_exit_30):
             self.player_should_exit = None
             self.square_to_exit = None
-    
-    def can_exit_from_special_square(self, current_player, roll):
-        """
-        التحقق إذا كان اللاعب يمكنه إخراج قطعة من مربع خاص
-        """
-        # المربع 28: يحتاج 3
-        if self.piece_on_28 == current_player and roll == 3:
-            return 28
-        
-        # المربع 29: يحتاج 2
-        if self.piece_on_29 == current_player and roll == 2:
-            return 29
-        
-        # المربع 30: يمكن بأي رمية
-        if self.piece_on_30 == current_player and roll > 0:
-            return 30
-        
-        return None  # لا يمكن الخروج
     
     def can_pass_happiness_house(self, cur_pos, dist):
 
