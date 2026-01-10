@@ -19,7 +19,12 @@ class HumanVsHuman:
                 print('\n', '='*50,
                       f"\n {self.board.get_current_player()} can move {dist} cells")
 
-                cur_pos = int(input('select the piece to move : '))
+                cur_pos = input('select the piece to move : ')
+                if cur_pos.strip() == '':
+                    print("You must enter a number!")
+                    continue
+                else:
+                    cur_pos = int(cur_pos)
 
                 if Rules.checkMove(self.board, cur_pos - 1, dist):
                     Rules.move(self.board, cur_pos - 1, dist)

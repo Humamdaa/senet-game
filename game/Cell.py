@@ -3,6 +3,7 @@ class Cell:
         self.pos = pos
         self.value = value
         self.special = None
+        self.must_move_next_turn=False
         if self.value in ["H", "W", "T", "R", "P", "E"]:
             self.special = self.value
             # self.value='.'
