@@ -10,10 +10,8 @@ class Rules:
         is_special_handled = False
 
         board.special_rules.update_last_roll(dist)
-
-        if board.special_rules.try_exit_from_special_square(cur_pos, board.get_current_player(), dist):
-            is_special_handled = True
-
+        if board.special_rules.try_exit_from_special_square(cur_pos+1, board.current_player, dist):
+            is_special_handled=True
         else:
             source_cell = board.get_cell(cur_pos)
             target_cell = board.get_cell(target)
@@ -42,14 +40,11 @@ class Rules:
         print(board.counter)
         moved_from_square = cur_pos + 1
         penalty_applied = board.special_rules.check_penalty_for_not_exiting(
-            board.current_player, moved_from_square)
-
-        # ثانياً: التحقق من المربعات الخاصة بعد الحركة
-        # board.special_rules.check_special_squares_after_move(board.current_player)
-
-        # ثالثاً: تبديل اللاعب
-        # board.switchPlayer()
-
+        board.current_player, moved_from_square)
+        
+    
+    
+    
     @staticmethod
     def checkMove(board: Board, cur_pos, dist):
 
