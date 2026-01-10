@@ -1,6 +1,6 @@
 class Cell:
     def __init__(self, pos, value):
-        self.row = pos
+        self.pos = pos
         self.value = value
         self.special = None
         if self.value in ["H", "W", "T", "R", "P", "E"]:
