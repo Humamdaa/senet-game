@@ -1,4 +1,4 @@
-from utils.RandomStep import Random
+from Utils.RandomStep import Random
 from game.Board import Board
 from game.Rules import Rules
 from game.Render import Render

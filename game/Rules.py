@@ -55,6 +55,11 @@ class Rules:
             return False
 
         target = cur_pos + dist
+        if 26<cur_pos<29:
+            if target>30:
+                print(f'Sorry ,for exit these piece you have to jump {target-cur_pos} steps only ')
+                return False
+
         '''
         here controll out peice 
         '''

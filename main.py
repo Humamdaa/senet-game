@@ -5,7 +5,7 @@ from game.Render import Render
 import json
 
 
-def load_levels(path="simple_level.json"):
+def load_levels(path="levels.json"):
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return data["levels"]
