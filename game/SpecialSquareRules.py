@@ -7,20 +7,20 @@ class SpecialSquareRules:
         self.special_squares = {     
             26: "House of Happiness",    # بيت السعادة
             27: "House of Water",        # بيت الماء
-            28: "House of Three Truths", # بيت الحقائق الثلاث
+            28: "House of Three Truths",  # بيت الحقائق الثلاث
             29: "House of Re-Atoum",     # بيت إعادة أتوم
             30: "House of Horus"         # بيت حورس
         }
-    
+
     def update_last_roll(self, roll):
         self.last_roll = roll
-    
+
     def handle_special_square(self, cur_pos, target, source_cell, target_cell, current_player):
         position = target + 1  
         
         if position not in self.special_squares:
             return False
-        
+
         square_name = self.special_squares[position]
         print(f"\n⚠️ Special Square Detected: {square_name} (Square {position})")
         
@@ -47,14 +47,15 @@ class SpecialSquareRules:
         """بيت الماء (27) - العودة فوراً إلى بيت البعث"""
         print("💧 House of Water: Returning to Rebirth House!")
         source_cell.set_value('.')  # إزالة القطعة من موقعها الأصلي
-        
+
         # البحث عن أول مربع غير مشغول قبل المربع 15
         for square in range(14, -1, -1):  # من 14 إلى 0
             if self.board.grid[square].is_empty():
-                print(f"   ↪ Moving to square {square + 1} (before rebirth house)")
+                print(
+                    f"   ↪ Moving to square {square + 1} (before rebirth house)")
                 self.board.grid[square].set_value(current_player)
                 return True
-        
+
         # إذا لم يوجد مربع فارغ، نذهب للمربع 15 نفسه
         print(f"   ↪ Moving directly to rebirth house (15)")
         self.board.grid[14].set_value(current_player)
@@ -74,10 +75,10 @@ class SpecialSquareRules:
             temp = source_cell.get_value()
             source_cell.set_value(target_cell.get_value())
             target_cell.set_value(temp)
-        
+
         return True
-    
-    def try_exit_from_special_square(self,cur_pos, current_player, dice_roll):
+
+    def try_exit_from_special_square(self, cur_pos, current_player, dice_roll):
         target_num = cur_pos+dice_roll
 
         index_25= self.board.grid[25]
@@ -95,7 +96,6 @@ class SpecialSquareRules:
                     cell.set_value('.')
                     cell.must_move_next_turn = False
                     return True
-        print('ffffffff')
         return False
 
     def check_penalty_for_not_exiting(self, current_player, moved_from_square):
@@ -105,7 +105,7 @@ class SpecialSquareRules:
                 cell.must_move_next_turn=False
                 return True
         return False
-    
+
     def apply_penalty(self, player, square_number):
         square_index = square_number - 1 
 
@@ -123,8 +123,8 @@ class SpecialSquareRules:
 
         target_pos = cur_pos + dist
         happiness_square = 25  # الفهرس 25 للمربع 26
-        
-        if cur_pos < happiness_square and target_pos > happiness_square :
+
+        if cur_pos < happiness_square and target_pos > happiness_square:
             print(f"❌ Cannot jump over House of Happiness (square 26)")
             return False
         return True

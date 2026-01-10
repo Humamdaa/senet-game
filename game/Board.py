@@ -13,6 +13,7 @@ class Board:
         self.last_move = 0 
         self.special_rules = SpecialSquareRules(self)
         self.counter = 0
+        
     def get_cell(self, pos):
         return self.grid[pos]
 
@@ -31,3 +32,24 @@ class Board:
 
     def switchPlayer(self):
         self.current_player = 'B' if self.current_player == 'A' else "A"
+
+    def clone(self):
+        # Clone grid values only
+        grid_values = [cell.get_value() for cell in self.grid]
+
+        # Create a new board using the same level/size
+        cloned_board = Board({
+            "name": self.level,
+            "size": self.size,
+            "grid": grid_values
+        })
+
+        # Copy simple attributes
+        cloned_board.current_player = self.current_player
+        cloned_board.counter = self.counter
+
+        # Recreate special rules for the cloned board
+        cloned_board.special_rules = SpecialSquareRules(cloned_board)
+        cloned_board.special_rules.last_roll = self.special_rules.last_roll
+
+        return cloned_board
