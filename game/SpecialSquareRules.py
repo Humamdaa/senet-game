@@ -82,7 +82,7 @@ class SpecialSquareRules:
         target_num = cur_pos+dice_roll
 
         index_25= self.board.grid[25]
-        print(f"index_25 {index_25.get_value()}  current_player = {current_player}  cur_poes = {cur_pos}  target_num {target_num}")
+        print(f"index_25 {index_25.get_value()}  current_player = {current_player}  cur_pos = {cur_pos}  target_num {target_num}")
         if index_25.get_value()==current_player and cur_pos==26:
             if target_num>=31:
                 print("exit from house of happenes")
