@@ -10,7 +10,7 @@ class Board:
         self.size = grid_data["size"]
         self.grid: list[Cell] = self._create_grid_from_data1(grid_data["grid"])
         self.current_player = 'A'
-        self.last_move = 0  # لتتبع الرمية الأخيرة
+        self.last_move = 0 
         self.special_rules = SpecialSquareRules(self)
         self.counter = 0
     def get_cell(self, pos):

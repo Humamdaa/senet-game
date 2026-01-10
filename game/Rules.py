@@ -5,7 +5,7 @@ class Rules:
         target = cur_pos + dist
         is_special_handled=False
         board.special_rules.update_last_roll(dist)
-        if board.special_rules.try_exit_from_special_square(cur_pos, board.current_player, dist):
+        if board.special_rules.try_exit_from_special_square(cur_pos+1, board.current_player, dist):
             is_special_handled=True
         else:
             
@@ -40,11 +40,6 @@ class Rules:
         penalty_applied = board.special_rules.check_penalty_for_not_exiting(
         board.current_player, moved_from_square)
         
-        # ثانياً: التحقق من المربعات الخاصة بعد الحركة
-        # board.special_rules.check_special_squares_after_move(board.current_player)
-        
-        # ثالثاً: تبديل اللاعب
-        # board.switchPlayer()
     
     
     
