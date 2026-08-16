@@ -5,11 +5,11 @@ class SpecialSquareRules:
         
 
         self.special_squares = {     
-            26: "House of Happiness",    # بيت السعادة
-            27: "House of Water",        # بيت الماء
-            28: "House of Three Truths",  # بيت الحقائق الثلاث
-            29: "House of Re-Atoum",     # بيت إعادة أتوم
-            30: "House of Horus"         # بيت حورس
+            26: "House of Happiness",   
+            27: "House of Water",
+            28: "House of Three Truths",
+            29: "House of Re-Atoum",
+            30: "House of Horus"         
         }
 
     def update_last_roll(self, roll):
@@ -25,9 +25,9 @@ class SpecialSquareRules:
         print(f"\n⚠️ Special Square Detected: {square_name} (Square {position})")
         
         
-        if position == 27:  # بيت الماء
+        if position == 27:
             return self.handle_water_house(target, source_cell, current_player)
-        elif position == 26:  # بيت السعادة
+        elif position == 26:
             return self.handle_happiness_house(cur_pos, target, source_cell, target_cell, current_player)
         elif position in [28,29,30]:  
             return self.last_three_houses(target, source_cell, target_cell, current_player)
@@ -44,19 +44,16 @@ class SpecialSquareRules:
             target_cell.set_value(temp)
         return True
     def handle_water_house(self, target, source_cell, current_player):
-        """بيت الماء (27) - العودة فوراً إلى بيت البعث"""
         print("💧 House of Water: Returning to Rebirth House!")
-        source_cell.set_value('.')  # إزالة القطعة من موقعها الأصلي
+        source_cell.set_value('.')
 
-        # البحث عن أول مربع غير مشغول قبل المربع 15
-        for square in range(14, -1, -1):  # من 14 إلى 0
+        for square in range(14, -1, -1):  
             if self.board.grid[square].is_empty():
                 print(
                     f"   ↪ Moving to square {square + 1} (before rebirth house)")
                 self.board.grid[square].set_value(current_player)
                 return True
 
-        # إذا لم يوجد مربع فارغ، نذهب للمربع 15 نفسه
         print(f"   ↪ Moving directly to rebirth house (15)")
         self.board.grid[14].set_value(current_player)
         return True
@@ -92,7 +89,7 @@ class SpecialSquareRules:
         for  cell in self.board.grid[-3:]:
             if cell.get_value() == current_player and cell.must_move_next_turn:
                 if target_num>=31:
-                    print(f"✅ current_player {current_player} rolled 3 and exits from square 28 to off-board (31)")
+                    print(f"✅ current_player {current_player} rolled {dice_roll} and exits from square {cur_pos} to off-board ({target_num})")
                     cell.set_value('.')
                     cell.must_move_next_turn = False
                     return True

@@ -3,9 +3,8 @@ from modes.HumanVsHuman import HumanVsHuman
 from game.Render import Render
 
 import json
-
-
-def load_levels(path="simple_level.json"):
+from modes.human_vs_ai import HumanVsAI
+def load_levels(path="levels.json"):
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return data["levels"]
@@ -21,10 +20,13 @@ board = Board(level1)
 
 print()
 print('1- Human vs Human')
-print('2- Human vs Human')
+print('2- Human vs AI')
 choose = int(input('select type of game: '))
 
 
 if choose == 1:
     game = HumanVsHuman(board)
+    game.start()
+else:
+    game = HumanVsAI(board)
     game.start()
